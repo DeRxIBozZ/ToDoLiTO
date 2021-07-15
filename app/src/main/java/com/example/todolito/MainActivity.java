@@ -83,17 +83,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestcode,int resultcode,Intent data){
         super.onActivityResult(requestcode,resultcode,data);
-        Intent uebergabe = data;
         if(resultcode == -1){
 
-        } else if(uebergabe.getStringExtra("Betreff") != null && (!uebergabe.getStringExtra("Betreff").equals(""))){
+        } else if(data.getStringExtra("Betreff") != null && (!data.getStringExtra("Betreff").equals(""))){
             Log.i("MainActivity","ToDo gefunden");
-            ToDo temp = new ToDo(uebergabe.getStringExtra("Betreff"));
-            temp.setBemerkung(uebergabe.getStringExtra("Bemerkung"));
-            temp.setZusatz(uebergabe.getStringExtra("Zusatz"));
-            temp.setDate(uebergabe.getStringExtra("Date"));
-            temp.setTime(uebergabe.getStringExtra("Time"));
-            temp.setGanztaegig(uebergabe.getBooleanExtra("Ganztaegig",false));
+            ToDo temp = new ToDo(data.getStringExtra("Betreff"));
+            temp.setBemerkung(data.getStringExtra("Bemerkung"));
+            temp.setZusatz(data.getStringExtra("Zusatz"));
+            temp.setDate(data.getStringExtra("Date"));
+            temp.setTimestart(data.getStringExtra("Timestart"));
+            temp.setTimeend(data.getStringExtra("Timeend"));
+            temp.setGanztaegig(data.getBooleanExtra("Ganztaegig",false));
             todolist.add(temp);
         } else {
             Toast toast = Toast.makeText(this,"Ungültige Eingabe",Toast.LENGTH_LONG);
@@ -104,7 +104,33 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setAdapter() {
+        final MainActivity ma = this;
         RecyclerAdapter adapter = new RecyclerAdapter(todolist);
+        adapter.setRelistener(new RecyclerAdapter.Recyclerclicklistener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Intent intent = new Intent(ma,DetailActivity.class);
+                String betreffText = todolist.get(position).getBetreff() ;
+                intent.putExtra("Betreff",betreffText);
+                String bemerkungText = todolist.get(position).getBemerkung();
+                intent.putExtra("Bemerkung",bemerkungText);
+                String zusatzText = todolist.get(position).getZusatz();
+                intent.putExtra("Zusatz",zusatzText);
+                String dateText = todolist.get(position).getDate();
+                intent.putExtra("Date",dateText);
+                String timestartText = todolist.get(position).getTimestart();
+                intent.putExtra("Timestart",timestartText);
+                String timeendText = todolist.get(position).getTimeend();
+                intent.putExtra("Timeend",timeendText);
+                intent.putExtra("Ganztaegig",todolist.get(position).isGanztaegig());
+                startActivityForResult(intent,1);
+            }
+
+            @Override
+            public void onItemLongClick(int position, View v) {
+
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -10,7 +10,8 @@ public class ToDo {
     private String bemerkung;
     private String zusatz;
     private String date;
-    private String time;
+    private String timestart;
+    private String timeend;
     private boolean ganztaegig;
 
     public ToDo(String betreff) {
@@ -19,7 +20,8 @@ public class ToDo {
         this.bemerkung = "";
         this.zusatz = "";
         this.date = "";
-        this.time = "";
+        this.timestart = "";
+        this.timeend = "";
         this.ganztaegig = false;
     }
 
@@ -63,11 +65,19 @@ public class ToDo {
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
+    public String getTimestart() {
+        return timestart;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTimestart(String time) {
+        this.timestart = time;
+    }
+
+    public String getTimeend() {
+        return timeend;
+    }
+
+    public void setTimeend(String timeend) {
+        this.timeend = timeend;
     }
 }

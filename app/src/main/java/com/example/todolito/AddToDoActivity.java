@@ -17,7 +17,8 @@ public class AddToDoActivity extends AppCompatActivity {
     EditText bemerkung;
     EditText zusatz;
     EditText date;
-    EditText time;
+    EditText timestart;
+    EditText timeend;
     CheckBox ganztaegig;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,8 @@ public class AddToDoActivity extends AppCompatActivity {
         bemerkung = findViewById(R.id.editTextTextPersonName2);
         zusatz = findViewById(R.id.editTextTextPersonName3);
         date = findViewById(R.id.editTextDate);
-        time = findViewById(R.id.editTextTime);
+        timestart = findViewById(R.id.editTextTime);
+        timeend = findViewById(R.id.editTextTime2);
         ganztaegig = findViewById(R.id.checkBox2);
         back = findViewById(R.id.button2);
         back.setOnClickListener(l -> back());
@@ -53,8 +55,10 @@ public class AddToDoActivity extends AppCompatActivity {
         intent.putExtra("Zusatz",zusatzText);
         String dateText = date.getText().toString();
         intent.putExtra("Date",dateText);
-        String timeText = time.getText().toString();
-        intent.putExtra("Time",timeText);
+        String timestartText = timestart.getText().toString();
+        intent.putExtra("Timestart",timestartText);
+        String timeendText = timeend.getText().toString();
+        intent.putExtra("Timeend",timeendText);
         intent.putExtra("Ganztaegig",ganztaegig.isChecked());
         setResult(0,intent);
         finish();
