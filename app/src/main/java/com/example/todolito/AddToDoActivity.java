@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -33,7 +32,7 @@ public class AddToDoActivity extends AppCompatActivity {
         ganztaegig = findViewById(R.id.checkBox2);
         back = findViewById(R.id.button2);
         back.setOnClickListener(l -> back());
-        add = findViewById(R.id.button);
+        add = findViewById(R.id.applybutton);
         add.setOnClickListener(l -> add());
     }
 
@@ -62,5 +61,10 @@ public class AddToDoActivity extends AppCompatActivity {
         intent.putExtra("Ganztaegig",ganztaegig.isChecked());
         setResult(0,intent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed(){
+        back();
     }
 }
